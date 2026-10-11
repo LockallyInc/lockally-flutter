@@ -1,0 +1,17 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request: {}
+permissions: { contents: read }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      # Generated dio api files carry unused-import warnings from the generator;
+      # fail only on errors. The hand-written auth layer is warning-clean.
+      - run: dart analyze --no-fatal-warnings
+      - run: dart test
