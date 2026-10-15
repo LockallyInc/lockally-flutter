@@ -1,0 +1,17 @@
+# lockally.model.ThreadClassification
+
+## Load the model package
+```dart
+import 'package:lockally/api.dart';
+```
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**threadId** | **String** |  | 
+**cached** | **bool** | True when a previous classification was reused. | [optional] 
+**classification** | [**BuiltMap&lt;String, JsonObject&gt;**](JsonObject.md) | Intent | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
