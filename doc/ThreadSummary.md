@@ -1,0 +1,20 @@
+# lockally.model.ThreadSummary
+
+## Load the model package
+```dart
+import 'package:lockally/api.dart';
+```
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **String** |  | 
+**subject** | **String** |  | [optional] 
+**participants** | **BuiltList&lt;String&gt;** |  | 
+**messageCount** | **int** |  | 
+**lastMessageAt** | [**DateTime**](DateTime.md) |  | [optional] 
+**lastDirection** | **String** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

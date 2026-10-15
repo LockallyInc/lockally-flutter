@@ -1,0 +1,38 @@
+# Release workflow for the Flutter SDK (pub.dev package `lockally`).
+#
+# TEMPLATE — inert in this monorepo. Copy to `.github/workflows/publish.yml` in
+# the SDK's own repo (github.com/lockallyinc/lockally-flutter). Tag-driven:
+# push `vX.Y.Z`.
+#
+# pub.dev supports keyless **automated publishing** via GitHub Actions OIDC — no
+# long-lived token/secret to store.
+#
+# One-time setup:
+#   - On pub.dev → the `lockally` package → Admin → Automated publishing: enable
+#     "Publishing from GitHub Actions", set repository lockallyinc/lockally-flutter
+#     and tag pattern `v{{version}}`.
+#   - The `id-token: write` permission below is what pub.dev verifies.
+name: Publish pub.dev
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  id-token: write   # pub.dev OIDC
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub get
+      # dart-dio (built_value) models need build_runner to emit *.g.dart first.
+      - run: dart run build_runner build --delete-conflicting-outputs
+      # Generated dio api files carry generator unused-import warnings; fail only
+      # on errors (the hand-written auth layer is warning-clean).
+      - run: dart analyze --no-fatal-warnings
+      - run: dart test
+      - run: dart pub publish --force
