@@ -1,0 +1,20 @@
+# lockally.model.SimulatedInbound
+
+## Load the model package
+```dart
+import 'package:lockally/api.dart';
+```
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**simulated** | **bool** |  | [optional] 
+**indexed** | **bool** | True when the message was adopted into a thread. | [optional] 
+**threadId** | **String** |  | [optional] 
+**messageId** | **String** |  | [optional] 
+**rfcMessageId** | **String** |  | [optional] 
+**annotations** | [**Annotations**](Annotations.md) |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
