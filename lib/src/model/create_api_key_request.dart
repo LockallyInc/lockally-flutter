@@ -15,6 +15,7 @@ part 'create_api_key_request.g.dart';
 /// * [label] - Free-text identifier shown in the dashboard.
 /// * [scopes] - Allowed scopes on this key.
 /// * [test] - Issue a test key (`lk_test_` prefix). A test key accepts sends, records them and fires a simulated delivery webhook without sending mail, and counts against no limit or allowance. 
+/// * [expiresAt] - Optional. When the key stops authenticating. Omit it for a key that does not expire. Must be in the future: an expiry already past would mint a key that fails its first request. 
 @BuiltValue()
 abstract class CreateApiKeyRequest implements Built<CreateApiKeyRequest, CreateApiKeyRequestBuilder> {
   /// Free-text identifier shown in the dashboard.
@@ -29,6 +30,10 @@ abstract class CreateApiKeyRequest implements Built<CreateApiKeyRequest, CreateA
   /// Issue a test key (`lk_test_` prefix). A test key accepts sends, records them and fires a simulated delivery webhook without sending mail, and counts against no limit or allowance. 
   @BuiltValueField(wireName: r'test')
   bool? get test;
+
+  /// Optional. When the key stops authenticating. Omit it for a key that does not expire. Must be in the future: an expiry already past would mint a key that fails its first request. 
+  @BuiltValueField(wireName: r'expires_at')
+  DateTime? get expiresAt;
 
   CreateApiKeyRequest._();
 
@@ -69,6 +74,13 @@ class _$CreateApiKeyRequestSerializer implements PrimitiveSerializer<CreateApiKe
       yield serializers.serialize(
         object.test,
         specifiedType: const FullType(bool),
+      );
+    }
+    if (object.expiresAt != null) {
+      yield r'expires_at';
+      yield serializers.serialize(
+        object.expiresAt,
+        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -114,6 +126,13 @@ class _$CreateApiKeyRequestSerializer implements PrimitiveSerializer<CreateApiKe
             specifiedType: const FullType(bool),
           ) as bool;
           result.test = valueDes;
+          break;
+        case r'expires_at':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.expiresAt = valueDes;
           break;
         default:
           unhandled.add(key);

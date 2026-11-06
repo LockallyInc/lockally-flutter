@@ -20,6 +20,9 @@ part 'api_key.g.dart';
 /// * [lastUsedAt] 
 /// * [revokedAt] 
 /// * [createdAt] 
+/// * [test] - True for an lk_test_* key: the whole request path runs but a send never reaches the mail server and nothing counts against the account.
+/// * [expiresAt] - When the key stops authenticating. Null means it does not expire, which is how every key behaved before expiry existed. Enforced at authentication, so the key fails the first request after this moment rather than whenever a sweep runs. 
+/// * [rotatedTo] - The successor issued by `POST /v1/api-keys/{id}/rotate`. Set on the PREDECESSOR, so you can see which key replaced this one while both still work through the overlap window. 
 @BuiltValue(instantiable: false)
 abstract class APIKey  {
   @BuiltValueField(wireName: r'id')
@@ -46,6 +49,18 @@ abstract class APIKey  {
 
   @BuiltValueField(wireName: r'created_at')
   DateTime get createdAt;
+
+  /// True for an lk_test_* key: the whole request path runs but a send never reaches the mail server and nothing counts against the account.
+  @BuiltValueField(wireName: r'test')
+  bool? get test;
+
+  /// When the key stops authenticating. Null means it does not expire, which is how every key behaved before expiry existed. Enforced at authentication, so the key fails the first request after this moment rather than whenever a sweep runs. 
+  @BuiltValueField(wireName: r'expires_at')
+  DateTime? get expiresAt;
+
+  /// The successor issued by `POST /v1/api-keys/{id}/rotate`. Set on the PREDECESSOR, so you can see which key replaced this one while both still work through the overlap window. 
+  @BuiltValueField(wireName: r'rotated_to')
+  String? get rotatedTo;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<APIKey> get serializer => _$APIKeySerializer();
@@ -107,6 +122,27 @@ class _$APIKeySerializer implements PrimitiveSerializer<APIKey> {
       object.createdAt,
       specifiedType: const FullType(DateTime),
     );
+    if (object.test != null) {
+      yield r'test';
+      yield serializers.serialize(
+        object.test,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.expiresAt != null) {
+      yield r'expires_at';
+      yield serializers.serialize(
+        object.expiresAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.rotatedTo != null) {
+      yield r'rotated_to';
+      yield serializers.serialize(
+        object.rotatedTo,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -225,6 +261,27 @@ class _$$APIKeySerializer implements PrimitiveSerializer<$APIKey> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.createdAt = valueDes;
+          break;
+        case r'test':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.test = valueDes;
+          break;
+        case r'expires_at':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.expiresAt = valueDes;
+          break;
+        case r'rotated_to':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.rotatedTo = valueDes;
           break;
         default:
           unhandled.add(key);

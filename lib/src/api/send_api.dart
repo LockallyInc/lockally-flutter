@@ -168,6 +168,7 @@ class SendApi {
   /// * [from] - Window start (default 7 days ago).
   /// * [to] - Window end (default now).
   /// * [domain] - Filter by sender domain.
+  /// * [tag] - Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -181,6 +182,7 @@ class SendApi {
     DateTime? from,
     DateTime? to,
     String? domain,
+    String? tag,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -211,6 +213,7 @@ class SendApi {
       if (from != null) r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
       if (to != null) r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
       if (domain != null) r'domain': encodeQueryParameter(_serializers, domain, const FullType(String)),
+      if (tag != null) r'tag': encodeQueryParameter(_serializers, tag, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(
@@ -259,10 +262,13 @@ class SendApi {
   /// Parameters:
   /// * [status] 
   /// * [sender] - Exact match against the `from` mailbox.
+  /// * [tag] - Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.
   /// * [q] - Free-text search across subject + sender.
   /// * [since] - Only messages queued at or after this RFC 3339 instant.
   /// * [cursor] - queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call.
   /// * [limit] 
+  /// * [sort] - Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.
+  /// * [order] - Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -275,10 +281,13 @@ class SendApi {
   Future<Response<ListMessages200Response>> listMessages({ 
     String? status,
     String? sender,
+    String? tag,
     String? q,
     DateTime? since,
     String? cursor,
     int? limit = 50,
+    String? sort = 'queued_at',
+    String? order,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -308,10 +317,13 @@ class SendApi {
     final _queryParameters = <String, dynamic>{
       if (status != null) r'status': encodeQueryParameter(_serializers, status, const FullType(String)),
       if (sender != null) r'sender': encodeQueryParameter(_serializers, sender, const FullType(String)),
+      if (tag != null) r'tag': encodeQueryParameter(_serializers, tag, const FullType(String)),
       if (q != null) r'q': encodeQueryParameter(_serializers, q, const FullType(String)),
       if (since != null) r'since': encodeQueryParameter(_serializers, since, const FullType(DateTime)),
       if (cursor != null) r'cursor': encodeQueryParameter(_serializers, cursor, const FullType(String)),
       if (limit != null) r'limit': encodeQueryParameter(_serializers, limit, const FullType(int)),
+      if (sort != null) r'sort': encodeQueryParameter(_serializers, sort, const FullType(String)),
+      if (order != null) r'order': encodeQueryParameter(_serializers, order, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(

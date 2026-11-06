@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listDomains**
-> ListDomains200Response listDomains()
+> ListDomains200Response listDomains(sort, order)
 
 List domains
 
@@ -286,9 +286,11 @@ Returns every domain registered under the calling tenant.
 import 'package:lockally/api.dart';
 
 final api = Lockally().getDomainsApi();
+final String sort = sort_example; // String | Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+final String order = order_example; // String | Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.
 
 try {
-    final response = api.listDomains();
+    final response = api.listDomains(sort, order);
     print(response);
 } on DioException catch (e) {
     print('Exception when calling DomainsApi->listDomains: $e\n');
@@ -296,7 +298,11 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **String**| Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index. | [optional] [default to 'created_at']
+ **order** | **String**| Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total. | [optional] 
 
 ### Return type
 

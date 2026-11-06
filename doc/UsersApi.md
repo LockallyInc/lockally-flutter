@@ -10,7 +10,7 @@ All URIs are relative to *https://api.lockally.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createUser**](UsersApi.md#createuser) | **POST** /v1/users | Create a user
-[**deleteUser**](UsersApi.md#deleteuser) | **DELETE** /v1/users/{id} | Delete a user
+[**deleteUser**](UsersApi.md#deleteuser) | **DELETE** /v1/users/{id} | Deprovision a user
 [**getUser**](UsersApi.md#getuser) | **GET** /v1/users/{id} | Get a user
 [**listUsers**](UsersApi.md#listusers) | **GET** /v1/users | List users
 [**updateUser**](UsersApi.md#updateuser) | **PATCH** /v1/users/{id} | Update a user
@@ -60,9 +60,9 @@ Name | Type | Description  | Notes
 # **deleteUser**
 > deleteUser(id)
 
-Delete a user
+Deprovision a user
 
-Soft-deletes the user by setting status to deprovisioned.
+Sets the user's status to `deprovisioned` and ends their access: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Their mail is kept. API keys belong to the workspace and are not revoked; rotate any the person had access to. 
 
 ### Example
 ```dart
@@ -185,6 +185,8 @@ Name | Type | Description  | Notes
 > User updateUser(id, updateUserRequest)
 
 Update a user
+
+Setting `status` to `suspended` or `deprovisioned` takes away everything the person signs in with: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Setting it back to `active` restores what the suspension disabled, and nothing an admin disabled for another reason. API keys belong to the workspace, not to the person who created them, and are not revoked; rotate any the person had access to. 
 
 ### Example
 ```dart

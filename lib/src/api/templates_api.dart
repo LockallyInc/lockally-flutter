@@ -261,6 +261,8 @@ class TemplatesApi {
   /// 
   ///
   /// Parameters:
+  /// * [sort] - Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+  /// * [order] - Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -271,6 +273,8 @@ class TemplatesApi {
   /// Returns a [Future] containing a [Response] with a [ListTemplates200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ListTemplates200Response>> listTemplates({ 
+    String? sort = 'name',
+    String? order,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -297,9 +301,15 @@ class TemplatesApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (sort != null) r'sort': encodeQueryParameter(_serializers, sort, const FullType(String)),
+      if (order != null) r'order': encodeQueryParameter(_serializers, order, const FullType(String)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

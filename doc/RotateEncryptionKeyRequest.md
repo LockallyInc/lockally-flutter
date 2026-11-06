@@ -8,7 +8,7 @@ import 'package:lockally/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**mailboxEmail** | **String** |  | 
+**mailboxEmail** | **String** |  | [optional] 
 **encryptedPrivateKey** | **String** |  | 
 **kdfParams** | [**JsonObject**](.md) |  | [optional] 
 

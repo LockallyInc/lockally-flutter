@@ -19,7 +19,7 @@ part 'create_encryption_key_request.g.dart';
 @BuiltValue()
 abstract class CreateEncryptionKeyRequest implements Built<CreateEncryptionKeyRequest, CreateEncryptionKeyRequestBuilder> {
   @BuiltValueField(wireName: r'mailbox_email')
-  String get mailboxEmail;
+  String? get mailboxEmail;
 
   @BuiltValueField(wireName: r'public_key')
   String get publicKey;
@@ -53,11 +53,13 @@ class _$CreateEncryptionKeyRequestSerializer implements PrimitiveSerializer<Crea
     CreateEncryptionKeyRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'mailbox_email';
-    yield serializers.serialize(
-      object.mailboxEmail,
-      specifiedType: const FullType(String),
-    );
+    if (object.mailboxEmail != null) {
+      yield r'mailbox_email';
+      yield serializers.serialize(
+        object.mailboxEmail,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'public_key';
     yield serializers.serialize(
       object.publicKey,

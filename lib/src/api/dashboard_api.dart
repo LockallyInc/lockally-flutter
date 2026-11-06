@@ -8,7 +8,6 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_value/json_object.dart';
 import 'package:lockally/src/model/get_audit_summary200_response.dart';
 import 'package:lockally/src/model/get_domains_status200_response.dart';
 import 'package:lockally/src/model/get_integrations_summary200_response.dart';
@@ -16,6 +15,7 @@ import 'package:lockally/src/model/get_security200_response.dart';
 import 'package:lockally/src/model/get_storage200_response.dart';
 import 'package:lockally/src/model/get_user_insights200_response.dart';
 import 'package:lockally/src/model/problem.dart';
+import 'package:lockally/src/model/tenant_health_report.dart';
 
 class DashboardApi {
 
@@ -431,9 +431,9 @@ class DashboardApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Returns a [Future] containing a [Response] with a [TenantHealthReport] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<JsonObject>> getTenantHealth({ 
+  Future<Response<TenantHealthReport>> getTenantHealth({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -468,14 +468,14 @@ class DashboardApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    JsonObject? _responseData;
+    TenantHealthReport? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(JsonObject),
-      ) as JsonObject;
+        specifiedType: const FullType(TenantHealthReport),
+      ) as TenantHealthReport;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -487,7 +487,7 @@ class DashboardApi {
       );
     }
 
-    return Response<JsonObject>(
+    return Response<TenantHealthReport>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

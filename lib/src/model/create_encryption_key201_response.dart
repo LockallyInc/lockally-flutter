@@ -14,6 +14,7 @@ part 'create_encryption_key201_response.g.dart';
 /// * [id] 
 /// * [mailboxId] 
 /// * [createdAt] 
+/// * [replacedOld] 
 @BuiltValue()
 abstract class CreateEncryptionKey201Response implements Built<CreateEncryptionKey201Response, CreateEncryptionKey201ResponseBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -24,6 +25,9 @@ abstract class CreateEncryptionKey201Response implements Built<CreateEncryptionK
 
   @BuiltValueField(wireName: r'created_at')
   DateTime? get createdAt;
+
+  @BuiltValueField(wireName: r'replaced_old')
+  bool? get replacedOld;
 
   CreateEncryptionKey201Response._();
 
@@ -69,6 +73,13 @@ class _$CreateEncryptionKey201ResponseSerializer implements PrimitiveSerializer<
         specifiedType: const FullType(DateTime),
       );
     }
+    if (object.replacedOld != null) {
+      yield r'replaced_old';
+      yield serializers.serialize(
+        object.replacedOld,
+        specifiedType: const FullType(bool),
+      );
+    }
   }
 
   @override
@@ -112,6 +123,13 @@ class _$CreateEncryptionKey201ResponseSerializer implements PrimitiveSerializer<
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.createdAt = valueDes;
+          break;
+        case r'replaced_old':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.replacedOld = valueDes;
           break;
         default:
           unhandled.add(key);

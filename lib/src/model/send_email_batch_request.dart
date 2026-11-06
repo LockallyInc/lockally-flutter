@@ -14,10 +14,15 @@ part 'send_email_batch_request.g.dart';
 ///
 /// Properties:
 /// * [messages] 
+/// * [variables] - Template variables every message in the batch inherits. Each message's own `variables` override these key by key, so shared values are written once and per-recipient ones stay per-recipient.  Without this, a 500-message batch repeats every shared variable 500 times: most of the payload, and 500 places for one of them to differ by a typo. 
 @BuiltValue()
 abstract class SendEmailBatchRequest implements Built<SendEmailBatchRequest, SendEmailBatchRequestBuilder> {
   @BuiltValueField(wireName: r'messages')
   BuiltList<SendMessage> get messages;
+
+  /// Template variables every message in the batch inherits. Each message's own `variables` override these key by key, so shared values are written once and per-recipient ones stay per-recipient.  Without this, a 500-message batch repeats every shared variable 500 times: most of the payload, and 500 places for one of them to differ by a typo. 
+  @BuiltValueField(wireName: r'variables')
+  BuiltMap<String, String>? get variables;
 
   SendEmailBatchRequest._();
 
@@ -47,6 +52,13 @@ class _$SendEmailBatchRequestSerializer implements PrimitiveSerializer<SendEmail
       object.messages,
       specifiedType: const FullType(BuiltList, [FullType(SendMessage)]),
     );
+    if (object.variables != null) {
+      yield r'variables';
+      yield serializers.serialize(
+        object.variables,
+        specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
+      );
+    }
   }
 
   @override
@@ -76,6 +88,13 @@ class _$SendEmailBatchRequestSerializer implements PrimitiveSerializer<SendEmail
             specifiedType: const FullType(BuiltList, [FullType(SendMessage)]),
           ) as BuiltList<SendMessage>;
           result.messages.replace(valueDes);
+          break;
+        case r'variables':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
+          ) as BuiltMap<String, String>;
+          result.variables.replace(valueDes);
           break;
         default:
           unhandled.add(key);

@@ -18,6 +18,11 @@ part 'get_encryption_key200_response.g.dart';
 /// * [encryptedPrivateKey] 
 /// * [kdfParams] 
 /// * [version] 
+/// * [createdAt] 
+/// * [rotatedAt] 
+/// * [hasRecovery] 
+/// * [recoverySetAt] 
+/// * [recoveryBlob] 
 @BuiltValue()
 abstract class GetEncryptionKey200Response implements Built<GetEncryptionKey200Response, GetEncryptionKey200ResponseBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -37,6 +42,21 @@ abstract class GetEncryptionKey200Response implements Built<GetEncryptionKey200R
 
   @BuiltValueField(wireName: r'version')
   int? get version;
+
+  @BuiltValueField(wireName: r'created_at')
+  DateTime? get createdAt;
+
+  @BuiltValueField(wireName: r'rotated_at')
+  DateTime? get rotatedAt;
+
+  @BuiltValueField(wireName: r'has_recovery')
+  bool? get hasRecovery;
+
+  @BuiltValueField(wireName: r'recovery_set_at')
+  DateTime? get recoverySetAt;
+
+  @BuiltValueField(wireName: r'recovery_blob')
+  String? get recoveryBlob;
 
   GetEncryptionKey200Response._();
 
@@ -103,6 +123,41 @@ class _$GetEncryptionKey200ResponseSerializer implements PrimitiveSerializer<Get
         specifiedType: const FullType(int),
       );
     }
+    if (object.createdAt != null) {
+      yield r'created_at';
+      yield serializers.serialize(
+        object.createdAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.rotatedAt != null) {
+      yield r'rotated_at';
+      yield serializers.serialize(
+        object.rotatedAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.hasRecovery != null) {
+      yield r'has_recovery';
+      yield serializers.serialize(
+        object.hasRecovery,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.recoverySetAt != null) {
+      yield r'recovery_set_at';
+      yield serializers.serialize(
+        object.recoverySetAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.recoveryBlob != null) {
+      yield r'recovery_blob';
+      yield serializers.serialize(
+        object.recoveryBlob,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -167,6 +222,41 @@ class _$GetEncryptionKey200ResponseSerializer implements PrimitiveSerializer<Get
             specifiedType: const FullType(int),
           ) as int;
           result.version = valueDes;
+          break;
+        case r'created_at':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdAt = valueDes;
+          break;
+        case r'rotated_at':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.rotatedAt = valueDes;
+          break;
+        case r'has_recovery':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hasRecovery = valueDes;
+          break;
+        case r'recovery_set_at':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.recoverySetAt = valueDes;
+          break;
+        case r'recovery_blob':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.recoveryBlob = valueDes;
           break;
         default:
           unhandled.add(key);

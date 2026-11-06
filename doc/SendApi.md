@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getMessageStats**
-> MessageStats getMessageStats(from, to, domain)
+> MessageStats getMessageStats(from, to, domain, tag)
 
 Aggregate delivery stats
 
@@ -115,9 +115,10 @@ final api = Lockally().getSendApi();
 final DateTime from = 2013-10-20T19:20:30+01:00; // DateTime | Window start (default 7 days ago).
 final DateTime to = 2013-10-20T19:20:30+01:00; // DateTime | Window end (default now).
 final String domain = domain_example; // String | Filter by sender domain.
+final String tag = tag_example; // String | Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.
 
 try {
-    final response = api.getMessageStats(from, to, domain);
+    final response = api.getMessageStats(from, to, domain, tag);
     print(response);
 } on DioException catch (e) {
     print('Exception when calling SendApi->getMessageStats: $e\n');
@@ -131,6 +132,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**| Window start (default 7 days ago). | [optional] 
  **to** | **DateTime**| Window end (default now). | [optional] 
  **domain** | **String**| Filter by sender domain. | [optional] 
+ **tag** | **String**| Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one. | [optional] 
 
 ### Return type
 
@@ -148,7 +150,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listMessages**
-> ListMessages200Response listMessages(status, sender, q, since, cursor, limit)
+> ListMessages200Response listMessages(status, sender, tag, q, since, cursor, limit, sort, order)
 
 List outbound messages
 
@@ -161,13 +163,16 @@ import 'package:lockally/api.dart';
 final api = Lockally().getSendApi();
 final String status = status_example; // String | 
 final String sender = sender_example; // String | Exact match against the `from` mailbox.
+final String tag = tag_example; // String | Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.
 final String q = q_example; // String | Free-text search across subject + sender.
 final DateTime since = 2013-10-20T19:20:30+01:00; // DateTime | Only messages queued at or after this RFC 3339 instant.
 final String cursor = cursor_example; // String | queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call.
 final int limit = 56; // int | 
+final String sort = sort_example; // String | Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.
+final String order = order_example; // String | Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.
 
 try {
-    final response = api.listMessages(status, sender, q, since, cursor, limit);
+    final response = api.listMessages(status, sender, tag, q, since, cursor, limit, sort, order);
     print(response);
 } on DioException catch (e) {
     print('Exception when calling SendApi->listMessages: $e\n');
@@ -180,10 +185,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**|  | [optional] 
  **sender** | **String**| Exact match against the `from` mailbox. | [optional] 
+ **tag** | **String**| Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write. | [optional] 
  **q** | **String**| Free-text search across subject + sender. | [optional] 
  **since** | **DateTime**| Only messages queued at or after this RFC 3339 instant. | [optional] 
  **cursor** | **String**| queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call. | [optional] 
  **limit** | **int**|  | [optional] [default to 50]
+ **sort** | **String**| Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead. | [optional] [default to 'queued_at']
+ **order** | **String**| Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page. | [optional] 
 
 ### Return type
 

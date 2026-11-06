@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **status** | **String** |  | 
 **createdAt** | [**DateTime**](DateTime.md) |  | 
 **updatedAt** | [**DateTime**](DateTime.md) |  | 
+**externalSystem** | **String** | The system that owns this contact's external id. Absent on contacts made by hand. | [optional] 
+**externalId** | **String** | The contact's id in `external_system`. Absent on contacts made by hand. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

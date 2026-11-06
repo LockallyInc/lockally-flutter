@@ -24,6 +24,8 @@ part 'message_detail.g.dart';
 /// * [updatedAt] 
 /// * [bounceReason] 
 /// * [sizeBytes] 
+/// * [metadata] - The sender's own key/value from the send request. Always present; `{}` when none was set.
+/// * [tags] - Grouping labels, lowercased and deduplicated. Always present; `[]` when none were set.
 /// * [from] 
 /// * [to] 
 /// * [cc] 
@@ -91,6 +93,13 @@ class _$MessageDetailSerializer implements PrimitiveSerializer<MessageDetail> {
         specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
       );
     }
+    if (object.metadata != null) {
+      yield r'metadata';
+      yield serializers.serialize(
+        object.metadata,
+        specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
+      );
+    }
     if (object.bcc != null) {
       yield r'bcc';
       yield serializers.serialize(
@@ -115,6 +124,13 @@ class _$MessageDetailSerializer implements PrimitiveSerializer<MessageDetail> {
       yield serializers.serialize(
         object.sizeBytes,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.tags != null) {
+      yield r'tags';
+      yield serializers.serialize(
+        object.tags,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
     yield r'queued_at';
@@ -224,6 +240,13 @@ class _$MessageDetailSerializer implements PrimitiveSerializer<MessageDetail> {
           ) as BuiltMap<String, String>;
           result.headers.replace(valueDes);
           break;
+        case r'metadata':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
+          ) as BuiltMap<String, String>;
+          result.metadata.replace(valueDes);
+          break;
         case r'bcc':
           final valueDes = serializers.deserialize(
             value,
@@ -251,6 +274,13 @@ class _$MessageDetailSerializer implements PrimitiveSerializer<MessageDetail> {
             specifiedType: const FullType(int),
           ) as int;
           result.sizeBytes = valueDes;
+          break;
+        case r'tags':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.tags.replace(valueDes);
           break;
         case r'queued_at':
           final valueDes = serializers.deserialize(

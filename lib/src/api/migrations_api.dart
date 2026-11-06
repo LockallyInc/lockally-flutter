@@ -8,7 +8,6 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_value/json_object.dart';
 import 'package:lockally/src/api_util.dart';
 import 'package:lockally/src/model/create_migration_credential_request.dart';
 import 'package:lockally/src/model/create_migration_request.dart';
@@ -20,6 +19,7 @@ import 'package:lockally/src/model/list_migrations200_response.dart';
 import 'package:lockally/src/model/map_migration_request.dart';
 import 'package:lockally/src/model/migration.dart';
 import 'package:lockally/src/model/migration_credential.dart';
+import 'package:lockally/src/model/migration_dns_check.dart';
 import 'package:lockally/src/model/migration_progress.dart';
 import 'package:lockally/src/model/problem.dart';
 import 'package:lockally/src/model/start_migration202_response.dart';
@@ -127,9 +127,9 @@ class MigrationsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Returns a [Future] containing a [Response] with a [MigrationDNSCheck] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<JsonObject>> checkMigrationDNS({ 
+  Future<Response<MigrationDNSCheck>> checkMigrationDNS({ 
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -165,14 +165,14 @@ class MigrationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    JsonObject? _responseData;
+    MigrationDNSCheck? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(JsonObject),
-      ) as JsonObject;
+        specifiedType: const FullType(MigrationDNSCheck),
+      ) as MigrationDNSCheck;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -184,7 +184,7 @@ class MigrationsApi {
       );
     }
 
-    return Response<JsonObject>(
+    return Response<MigrationDNSCheck>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

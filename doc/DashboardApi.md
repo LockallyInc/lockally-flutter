@@ -204,7 +204,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getTenantHealth**
-> JsonObject getTenantHealth()
+> TenantHealthReport getTenantHealth()
 
 Full tenant health report
 
@@ -227,7 +227,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+[**TenantHealthReport**](TenantHealthReport.md)
 
 ### Authorization
 

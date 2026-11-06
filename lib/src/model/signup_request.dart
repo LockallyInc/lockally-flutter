@@ -12,13 +12,14 @@ part 'signup_request.g.dart';
 /// SignupRequest
 ///
 /// Properties:
-/// * [slug] 
+/// * [slug] - Workspace id. 3 to 63 characters of lowercase a-z, 0-9 and hyphens, starting and ending with a letter or digit. Anything else is refused with 400 Invalid workspace id.
 /// * [displayName] 
 /// * [adminEmail] 
 /// * [password] 
 /// * [mode] 
 @BuiltValue()
 abstract class SignupRequest implements Built<SignupRequest, SignupRequestBuilder> {
+  /// Workspace id. 3 to 63 characters of lowercase a-z, 0-9 and hyphens, starting and ending with a letter or digit. Anything else is refused with 400 Invalid workspace id.
   @BuiltValueField(wireName: r'slug')
   String get slug;
 

@@ -26,6 +26,8 @@ part 'contact.g.dart';
 /// * [status] 
 /// * [createdAt] 
 /// * [updatedAt] 
+/// * [externalSystem] - The system that owns this contact's external id. Absent on contacts made by hand.
+/// * [externalId] - The contact's id in `external_system`. Absent on contacts made by hand.
 @BuiltValue()
 abstract class Contact implements Built<Contact, ContactBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -70,6 +72,14 @@ abstract class Contact implements Built<Contact, ContactBuilder> {
 
   @BuiltValueField(wireName: r'updated_at')
   DateTime get updatedAt;
+
+  /// The system that owns this contact's external id. Absent on contacts made by hand.
+  @BuiltValueField(wireName: r'external_system')
+  String? get externalSystem;
+
+  /// The contact's id in `external_system`. Absent on contacts made by hand.
+  @BuiltValueField(wireName: r'external_id')
+  String? get externalId;
 
   Contact._();
 
@@ -176,6 +186,20 @@ class _$ContactSerializer implements PrimitiveSerializer<Contact> {
       object.updatedAt,
       specifiedType: const FullType(DateTime),
     );
+    if (object.externalSystem != null) {
+      yield r'external_system';
+      yield serializers.serialize(
+        object.externalSystem,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.externalId != null) {
+      yield r'external_id';
+      yield serializers.serialize(
+        object.externalId,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -296,6 +320,20 @@ class _$ContactSerializer implements PrimitiveSerializer<Contact> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.updatedAt = valueDes;
+          break;
+        case r'external_system':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.externalSystem = valueDes;
+          break;
+        case r'external_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.externalId = valueDes;
           break;
         default:
           unhandled.add(key);

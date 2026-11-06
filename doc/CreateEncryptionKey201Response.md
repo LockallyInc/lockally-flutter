@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | [optional] 
 **mailboxId** | **String** |  | [optional] 
 **createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
+**replacedOld** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

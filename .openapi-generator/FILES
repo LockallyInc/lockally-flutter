@@ -31,6 +31,10 @@ doc/BatchLookupPublicKeys200ResponseDataInner.md
 doc/BatchResult.md
 doc/BillingApi.md
 doc/BillingStatus.md
+doc/BulkUpsertExternalContacts200Response.md
+doc/BulkUpsertExternalContacts200ResponseResultsInner.md
+doc/BulkUpsertExternalContactsRequest.md
+doc/BulkUpsertExternalContactsRequestContactsInner.md
 doc/Calendar.md
 doc/CalendarEvent.md
 doc/CalendarIntegration.md
@@ -89,6 +93,7 @@ doc/DraftResult.md
 doc/DraftsApi.md
 doc/EncryptionApi.md
 doc/ExportMailbox201Response.md
+doc/ExternalContactInput.md
 doc/GALSettings.md
 doc/GetAddOnStatus200Response.md
 doc/GetAuditSummary200Response.md
@@ -111,6 +116,8 @@ doc/GetDomainsStatus200Response.md
 doc/GetDomainsStatus200ResponseDomainsInner.md
 doc/GetDomainsStatus200ResponseDomainsInnerChecksInner.md
 doc/GetEncryptionKey200Response.md
+doc/GetEncryptionStatus200Response.md
+doc/GetEncryptionStatus200ResponseMailboxesInner.md
 doc/GetIPAssignment200Response.md
 doc/GetIntegrationsSummary200Response.md
 doc/GetIntegrationsSummary200ResponseApiKeysInner.md
@@ -171,6 +178,8 @@ doc/MessageStatsRates.md
 doc/MessageStatsWindow.md
 doc/Migration.md
 doc/MigrationCredential.md
+doc/MigrationDNSCheck.md
+doc/MigrationDomainDNS.md
 doc/MigrationEvent.md
 doc/MigrationMailbox.md
 doc/MigrationProgress.md
@@ -186,6 +195,7 @@ doc/Resource.md
 doc/ResourcesApi.md
 doc/ReturnPath.md
 doc/ReturnPathCheck.md
+doc/RotateApiKeyRequest.md
 doc/RotateEncryptionKeyRequest.md
 doc/SendApi.md
 doc/SendEmail200Response.md
@@ -209,6 +219,8 @@ doc/TemplateInput.md
 doc/TemplatesApi.md
 doc/Tenant.md
 doc/TenantApi.md
+doc/TenantHealthCheck.md
+doc/TenantHealthReport.md
 doc/TestApi.md
 doc/Thread.md
 doc/ThreadClassification.md
@@ -217,8 +229,10 @@ doc/ThreadMessage.md
 doc/ThreadMessageBody.md
 doc/ThreadMessageBodyBody.md
 doc/ThreadSummary.md
+doc/TrackingPolicy.md
 doc/UnitBundle.md
 doc/UpdateAdminRequest.md
+doc/UpdateApiKeyRequest.md
 doc/UpdateCalendarEventRequest.md
 doc/UpdateCalendarIntegrationRequest.md
 doc/UpdateCalendarMemberRequest.md
@@ -232,6 +246,7 @@ doc/UpdateMailboxRequest.md
 doc/UpdateMigrationMailboxRequest.md
 doc/UpdateMigrationRequest.md
 doc/UpdateResourceRequest.md
+doc/UpdateTrackingPolicyRequest.md
 doc/UpdateUserRequest.md
 doc/UpdateWebhookRequest.md
 doc/User.md
@@ -304,6 +319,10 @@ lib/src/model/batch_lookup_public_keys200_response.dart
 lib/src/model/batch_lookup_public_keys200_response_data_inner.dart
 lib/src/model/batch_result.dart
 lib/src/model/billing_status.dart
+lib/src/model/bulk_upsert_external_contacts200_response.dart
+lib/src/model/bulk_upsert_external_contacts200_response_results_inner.dart
+lib/src/model/bulk_upsert_external_contacts_request.dart
+lib/src/model/bulk_upsert_external_contacts_request_contacts_inner.dart
 lib/src/model/calendar.dart
 lib/src/model/calendar_event.dart
 lib/src/model/calendar_integration.dart
@@ -354,6 +373,7 @@ lib/src/model/draft.dart
 lib/src/model/draft_list.dart
 lib/src/model/draft_result.dart
 lib/src/model/export_mailbox201_response.dart
+lib/src/model/external_contact_input.dart
 lib/src/model/gal_settings.dart
 lib/src/model/get_add_on_status200_response.dart
 lib/src/model/get_audit_summary200_response.dart
@@ -376,6 +396,8 @@ lib/src/model/get_domains_status200_response.dart
 lib/src/model/get_domains_status200_response_domains_inner.dart
 lib/src/model/get_domains_status200_response_domains_inner_checks_inner.dart
 lib/src/model/get_encryption_key200_response.dart
+lib/src/model/get_encryption_status200_response.dart
+lib/src/model/get_encryption_status200_response_mailboxes_inner.dart
 lib/src/model/get_integrations_summary200_response.dart
 lib/src/model/get_integrations_summary200_response_api_keys_inner.dart
 lib/src/model/get_integrations_summary200_response_webhooks_inner.dart
@@ -433,6 +455,8 @@ lib/src/model/message_stats_rates.dart
 lib/src/model/message_stats_window.dart
 lib/src/model/migration.dart
 lib/src/model/migration_credential.dart
+lib/src/model/migration_dns_check.dart
+lib/src/model/migration_domain_dns.dart
 lib/src/model/migration_event.dart
 lib/src/model/migration_mailbox.dart
 lib/src/model/migration_progress.dart
@@ -446,6 +470,7 @@ lib/src/model/replace_distribution_list_members_request.dart
 lib/src/model/resource.dart
 lib/src/model/return_path.dart
 lib/src/model/return_path_check.dart
+lib/src/model/rotate_api_key_request.dart
 lib/src/model/rotate_encryption_key_request.dart
 lib/src/model/send_email200_response.dart
 lib/src/model/send_email202_response.dart
@@ -464,6 +489,8 @@ lib/src/model/suppression.dart
 lib/src/model/template.dart
 lib/src/model/template_input.dart
 lib/src/model/tenant.dart
+lib/src/model/tenant_health_check.dart
+lib/src/model/tenant_health_report.dart
 lib/src/model/thread.dart
 lib/src/model/thread_classification.dart
 lib/src/model/thread_list.dart
@@ -471,8 +498,10 @@ lib/src/model/thread_message.dart
 lib/src/model/thread_message_body.dart
 lib/src/model/thread_message_body_body.dart
 lib/src/model/thread_summary.dart
+lib/src/model/tracking_policy.dart
 lib/src/model/unit_bundle.dart
 lib/src/model/update_admin_request.dart
+lib/src/model/update_api_key_request.dart
 lib/src/model/update_calendar_event_request.dart
 lib/src/model/update_calendar_integration_request.dart
 lib/src/model/update_calendar_member_request.dart
@@ -486,6 +515,7 @@ lib/src/model/update_mailbox_request.dart
 lib/src/model/update_migration_mailbox_request.dart
 lib/src/model/update_migration_request.dart
 lib/src/model/update_resource_request.dart
+lib/src/model/update_tracking_policy_request.dart
 lib/src/model/update_user_request.dart
 lib/src/model/update_webhook_request.dart
 lib/src/model/user.dart
@@ -527,6 +557,10 @@ test/batch_lookup_public_keys200_response_test.dart
 test/batch_result_test.dart
 test/billing_api_test.dart
 test/billing_status_test.dart
+test/bulk_upsert_external_contacts200_response_results_inner_test.dart
+test/bulk_upsert_external_contacts200_response_test.dart
+test/bulk_upsert_external_contacts_request_contacts_inner_test.dart
+test/bulk_upsert_external_contacts_request_test.dart
 test/calendar_event_test.dart
 test/calendar_integration_test.dart
 test/calendar_member_test.dart
@@ -585,6 +619,7 @@ test/draft_test.dart
 test/drafts_api_test.dart
 test/encryption_api_test.dart
 test/export_mailbox201_response_test.dart
+test/external_contact_input_test.dart
 test/gal_settings_test.dart
 test/get_add_on_status200_response_test.dart
 test/get_audit_summary200_response_test.dart
@@ -607,6 +642,8 @@ test/get_domains_status200_response_domains_inner_checks_inner_test.dart
 test/get_domains_status200_response_domains_inner_test.dart
 test/get_domains_status200_response_test.dart
 test/get_encryption_key200_response_test.dart
+test/get_encryption_status200_response_mailboxes_inner_test.dart
+test/get_encryption_status200_response_test.dart
 test/get_integrations_summary200_response_api_keys_inner_test.dart
 test/get_integrations_summary200_response_test.dart
 test/get_integrations_summary200_response_webhooks_inner_test.dart
@@ -666,6 +703,8 @@ test/message_stats_test.dart
 test/message_stats_window_test.dart
 test/message_test.dart
 test/migration_credential_test.dart
+test/migration_dns_check_test.dart
+test/migration_domain_dns_test.dart
 test/migration_event_test.dart
 test/migration_mailbox_test.dart
 test/migration_progress_mailboxes_inner_test.dart
@@ -682,6 +721,7 @@ test/resource_test.dart
 test/resources_api_test.dart
 test/return_path_check_test.dart
 test/return_path_test.dart
+test/rotate_api_key_request_test.dart
 test/rotate_encryption_key_request_test.dart
 test/send_api_test.dart
 test/send_email200_response_test.dart
@@ -704,6 +744,8 @@ test/template_input_test.dart
 test/template_test.dart
 test/templates_api_test.dart
 test/tenant_api_test.dart
+test/tenant_health_check_test.dart
+test/tenant_health_report_test.dart
 test/tenant_test.dart
 test/test_api_test.dart
 test/thread_classification_test.dart
@@ -713,8 +755,10 @@ test/thread_message_body_test.dart
 test/thread_message_test.dart
 test/thread_summary_test.dart
 test/thread_test.dart
+test/tracking_policy_test.dart
 test/unit_bundle_test.dart
 test/update_admin_request_test.dart
+test/update_api_key_request_test.dart
 test/update_calendar_event_request_test.dart
 test/update_calendar_integration_request_test.dart
 test/update_calendar_member_request_test.dart
@@ -728,6 +772,7 @@ test/update_mailbox_request_test.dart
 test/update_migration_mailbox_request_test.dart
 test/update_migration_request_test.dart
 test/update_resource_request_test.dart
+test/update_tracking_policy_request_test.dart
 test/update_user_request_test.dart
 test/update_webhook_request_test.dart
 test/user_event_test.dart

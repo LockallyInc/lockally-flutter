@@ -14,6 +14,7 @@ import 'package:lockally/src/model/create_encryption_key201_response.dart';
 import 'package:lockally/src/model/create_encryption_key_request.dart';
 import 'package:lockally/src/model/create_encryption_recovery_request.dart';
 import 'package:lockally/src/model/get_encryption_key200_response.dart';
+import 'package:lockally/src/model/get_encryption_status200_response.dart';
 import 'package:lockally/src/model/problem.dart';
 import 'package:lockally/src/model/rotate_encryption_key_request.dart';
 
@@ -112,7 +113,7 @@ class EncryptionApi {
   }
 
   /// Upload an encryption key pair
-  /// 
+  /// Only the mailbox&#39;s own webmail session may call this; an API key is refused with 403. The private key is sealed under that mailbox&#39;s password, which an administrator never has. &#x60;mailbox_email&#x60;, if sent, must be the caller&#39;s own mailbox. A mailbox that already has a key is starting over: the old key is kept inactive, not destroyed, and the new one starts without a recovery code.
   ///
   /// Parameters:
   /// * [createEncryptionKeyRequest] 
@@ -213,7 +214,7 @@ class EncryptionApi {
   }
 
   /// Store an encryption recovery blob
-  /// 
+  /// Only the mailbox&#39;s own webmail session may call this; an API key is refused with 403. The private key is sealed under that mailbox&#39;s password, which an administrator never has. &#x60;mailbox_email&#x60;, if sent, must be the caller&#39;s own mailbox. The blob is the private key sealed under a recovery code the browser generated; the code itself is never sent. Replaces any earlier one.
   ///
   /// Parameters:
   /// * [createEncryptionRecoveryRequest] 
@@ -286,7 +287,7 @@ class EncryptionApi {
   }
 
   /// Get encryption key for a mailbox
-  /// 
+  /// Anyone in the workspace gets the public key. The mailbox&#39;s own webmail session also gets its sealed private key, its sealed recovery copy and the recovery state.
   ///
   /// Parameters:
   /// * [email] 
@@ -366,8 +367,87 @@ class EncryptionApi {
     );
   }
 
-  /// Rotate an encryption key
-  /// 
+  /// End-to-end encryption status for the workspace
+  /// For administrators: whether the add-on is on, and for each mailbox whether it has a key and a recovery code. Carries no key material.
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [GetEncryptionStatus200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<GetEncryptionStatus200Response>> getEncryptionStatus({ 
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/encryption/status';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    GetEncryptionStatus200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(GetEncryptionStatus200Response),
+      ) as GetEncryptionStatus200Response;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<GetEncryptionStatus200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// Re-seal an encryption key under a new password
+  /// Only the mailbox&#39;s own webmail session may call this; an API key is refused with 403. The private key is sealed under that mailbox&#39;s password, which an administrator never has. &#x60;mailbox_email&#x60;, if sent, must be the caller&#39;s own mailbox. The key pair does not change, so every message stays readable.
   ///
   /// Parameters:
   /// * [rotateEncryptionKeyRequest] 

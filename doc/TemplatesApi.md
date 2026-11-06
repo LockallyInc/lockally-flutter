@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listTemplates**
-> ListTemplates200Response listTemplates()
+> ListTemplates200Response listTemplates(sort, order)
 
 List templates
 
@@ -148,9 +148,11 @@ List templates
 import 'package:lockally/api.dart';
 
 final api = Lockally().getTemplatesApi();
+final String sort = sort_example; // String | Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+final String order = order_example; // String | Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.
 
 try {
-    final response = api.listTemplates();
+    final response = api.listTemplates(sort, order);
     print(response);
 } on DioException catch (e) {
     print('Exception when calling TemplatesApi->listTemplates: $e\n');
@@ -158,7 +160,11 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **String**| Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index. | [optional] [default to 'name']
+ **order** | **String**| Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total. | [optional] 
 
 ### Return type
 

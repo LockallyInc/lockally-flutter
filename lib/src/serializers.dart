@@ -35,6 +35,10 @@ import 'package:lockally/src/model/batch_lookup_public_keys200_response.dart';
 import 'package:lockally/src/model/batch_lookup_public_keys200_response_data_inner.dart';
 import 'package:lockally/src/model/batch_result.dart';
 import 'package:lockally/src/model/billing_status.dart';
+import 'package:lockally/src/model/bulk_upsert_external_contacts200_response.dart';
+import 'package:lockally/src/model/bulk_upsert_external_contacts200_response_results_inner.dart';
+import 'package:lockally/src/model/bulk_upsert_external_contacts_request.dart';
+import 'package:lockally/src/model/bulk_upsert_external_contacts_request_contacts_inner.dart';
 import 'package:lockally/src/model/calendar.dart';
 import 'package:lockally/src/model/calendar_event.dart';
 import 'package:lockally/src/model/calendar_integration.dart';
@@ -84,6 +88,7 @@ import 'package:lockally/src/model/draft.dart';
 import 'package:lockally/src/model/draft_list.dart';
 import 'package:lockally/src/model/draft_result.dart';
 import 'package:lockally/src/model/export_mailbox201_response.dart';
+import 'package:lockally/src/model/external_contact_input.dart';
 import 'package:lockally/src/model/gal_settings.dart';
 import 'package:lockally/src/model/get_add_on_status200_response.dart';
 import 'package:lockally/src/model/get_audit_summary200_response.dart';
@@ -106,6 +111,8 @@ import 'package:lockally/src/model/get_domains_status200_response.dart';
 import 'package:lockally/src/model/get_domains_status200_response_domains_inner.dart';
 import 'package:lockally/src/model/get_domains_status200_response_domains_inner_checks_inner.dart';
 import 'package:lockally/src/model/get_encryption_key200_response.dart';
+import 'package:lockally/src/model/get_encryption_status200_response.dart';
+import 'package:lockally/src/model/get_encryption_status200_response_mailboxes_inner.dart';
 import 'package:lockally/src/model/get_ip_assignment200_response.dart';
 import 'package:lockally/src/model/get_integrations_summary200_response.dart';
 import 'package:lockally/src/model/get_integrations_summary200_response_api_keys_inner.dart';
@@ -163,6 +170,8 @@ import 'package:lockally/src/model/message_stats_rates.dart';
 import 'package:lockally/src/model/message_stats_window.dart';
 import 'package:lockally/src/model/migration.dart';
 import 'package:lockally/src/model/migration_credential.dart';
+import 'package:lockally/src/model/migration_dns_check.dart';
+import 'package:lockally/src/model/migration_domain_dns.dart';
 import 'package:lockally/src/model/migration_event.dart';
 import 'package:lockally/src/model/migration_mailbox.dart';
 import 'package:lockally/src/model/migration_progress.dart';
@@ -176,6 +185,7 @@ import 'package:lockally/src/model/replace_distribution_list_members_request.dar
 import 'package:lockally/src/model/resource.dart';
 import 'package:lockally/src/model/return_path.dart';
 import 'package:lockally/src/model/return_path_check.dart';
+import 'package:lockally/src/model/rotate_api_key_request.dart';
 import 'package:lockally/src/model/rotate_encryption_key_request.dart';
 import 'package:lockally/src/model/send_email200_response.dart';
 import 'package:lockally/src/model/send_email202_response.dart';
@@ -194,6 +204,8 @@ import 'package:lockally/src/model/suppression.dart';
 import 'package:lockally/src/model/template.dart';
 import 'package:lockally/src/model/template_input.dart';
 import 'package:lockally/src/model/tenant.dart';
+import 'package:lockally/src/model/tenant_health_check.dart';
+import 'package:lockally/src/model/tenant_health_report.dart';
 import 'package:lockally/src/model/thread.dart';
 import 'package:lockally/src/model/thread_classification.dart';
 import 'package:lockally/src/model/thread_list.dart';
@@ -201,8 +213,10 @@ import 'package:lockally/src/model/thread_message.dart';
 import 'package:lockally/src/model/thread_message_body.dart';
 import 'package:lockally/src/model/thread_message_body_body.dart';
 import 'package:lockally/src/model/thread_summary.dart';
+import 'package:lockally/src/model/tracking_policy.dart';
 import 'package:lockally/src/model/unit_bundle.dart';
 import 'package:lockally/src/model/update_admin_request.dart';
+import 'package:lockally/src/model/update_api_key_request.dart';
 import 'package:lockally/src/model/update_calendar_event_request.dart';
 import 'package:lockally/src/model/update_calendar_integration_request.dart';
 import 'package:lockally/src/model/update_calendar_member_request.dart';
@@ -216,6 +230,7 @@ import 'package:lockally/src/model/update_mailbox_request.dart';
 import 'package:lockally/src/model/update_migration_mailbox_request.dart';
 import 'package:lockally/src/model/update_migration_request.dart';
 import 'package:lockally/src/model/update_resource_request.dart';
+import 'package:lockally/src/model/update_tracking_policy_request.dart';
 import 'package:lockally/src/model/update_user_request.dart';
 import 'package:lockally/src/model/update_webhook_request.dart';
 import 'package:lockally/src/model/user.dart';
@@ -251,6 +266,10 @@ part 'serializers.g.dart';
   BatchLookupPublicKeys200ResponseDataInner,
   BatchResult,
   BillingStatus,
+  BulkUpsertExternalContacts200Response,
+  BulkUpsertExternalContacts200ResponseResultsInner,
+  BulkUpsertExternalContactsRequest,
+  BulkUpsertExternalContactsRequestContactsInner,
   Calendar,
   CalendarEvent,
   CalendarIntegration,
@@ -300,6 +319,7 @@ part 'serializers.g.dart';
   DraftList,
   DraftResult,
   ExportMailbox201Response,
+  ExternalContactInput,$ExternalContactInput,
   GALSettings,
   GetAddOnStatus200Response,
   GetAuditSummary200Response,
@@ -322,6 +342,8 @@ part 'serializers.g.dart';
   GetDomainsStatus200ResponseDomainsInner,
   GetDomainsStatus200ResponseDomainsInnerChecksInner,
   GetEncryptionKey200Response,
+  GetEncryptionStatus200Response,
+  GetEncryptionStatus200ResponseMailboxesInner,
   GetIPAssignment200Response,
   GetIntegrationsSummary200Response,
   GetIntegrationsSummary200ResponseApiKeysInner,
@@ -379,6 +401,8 @@ part 'serializers.g.dart';
   MessageStatsWindow,
   Migration,
   MigrationCredential,
+  MigrationDNSCheck,
+  MigrationDomainDNS,
   MigrationEvent,
   MigrationMailbox,
   MigrationProgress,
@@ -392,6 +416,7 @@ part 'serializers.g.dart';
   Resource,
   ReturnPath,
   ReturnPathCheck,
+  RotateApiKeyRequest,
   RotateEncryptionKeyRequest,
   SendEmail200Response,
   SendEmail202Response,
@@ -410,6 +435,8 @@ part 'serializers.g.dart';
   Template,
   TemplateInput,
   Tenant,
+  TenantHealthCheck,
+  TenantHealthReport,
   Thread,
   ThreadClassification,
   ThreadList,
@@ -417,8 +444,10 @@ part 'serializers.g.dart';
   ThreadMessageBody,
   ThreadMessageBodyBody,
   ThreadSummary,
+  TrackingPolicy,
   UnitBundle,
   UpdateAdminRequest,
+  UpdateApiKeyRequest,
   UpdateCalendarEventRequest,
   UpdateCalendarIntegrationRequest,
   UpdateCalendarMemberRequest,
@@ -432,6 +461,7 @@ part 'serializers.g.dart';
   UpdateMigrationMailboxRequest,
   UpdateMigrationRequest,
   UpdateResourceRequest,
+  UpdateTrackingPolicyRequest,
   UpdateUserRequest,
   UpdateWebhookRequest,
   User,
@@ -446,6 +476,7 @@ part 'serializers.g.dart';
 Serializers serializers = (_$serializers.toBuilder()
       ..add(APIKey.serializer)
       ..add(Admin.serializer)
+      ..add(ExternalContactInput.serializer)
       ..add(Message.serializer)
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

@@ -16,7 +16,7 @@ part 'create_encryption_recovery_request.g.dart';
 @BuiltValue()
 abstract class CreateEncryptionRecoveryRequest implements Built<CreateEncryptionRecoveryRequest, CreateEncryptionRecoveryRequestBuilder> {
   @BuiltValueField(wireName: r'mailbox_email')
-  String get mailboxEmail;
+  String? get mailboxEmail;
 
   @BuiltValueField(wireName: r'recovery_blob')
   String get recoveryBlob;
@@ -44,11 +44,13 @@ class _$CreateEncryptionRecoveryRequestSerializer implements PrimitiveSerializer
     CreateEncryptionRecoveryRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'mailbox_email';
-    yield serializers.serialize(
-      object.mailboxEmail,
-      specifiedType: const FullType(String),
-    );
+    if (object.mailboxEmail != null) {
+      yield r'mailbox_email';
+      yield serializers.serialize(
+        object.mailboxEmail,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'recovery_blob';
     yield serializers.serialize(
       object.recoveryBlob,

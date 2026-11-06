@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **checkMigrationDNS**
-> JsonObject checkMigrationDNS(id)
+> MigrationDNSCheck checkMigrationDNS(id)
 
 Check DNS readiness for cutover
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+[**MigrationDNSCheck**](MigrationDNSCheck.md)
 
 ### Authorization
 

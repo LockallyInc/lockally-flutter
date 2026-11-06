@@ -23,6 +23,8 @@ part 'message.g.dart';
 /// * [updatedAt] 
 /// * [bounceReason] 
 /// * [sizeBytes] 
+/// * [metadata] - The sender's own key/value from the send request. Always present; `{}` when none was set.
+/// * [tags] - Grouping labels, lowercased and deduplicated. Always present; `[]` when none were set.
 @BuiltValue(instantiable: false)
 abstract class Message  {
   @BuiltValueField(wireName: r'id')
@@ -59,6 +61,14 @@ abstract class Message  {
 
   @BuiltValueField(wireName: r'size_bytes')
   int? get sizeBytes;
+
+  /// The sender's own key/value from the send request. Always present; `{}` when none was set.
+  @BuiltValueField(wireName: r'metadata')
+  BuiltMap<String, String>? get metadata;
+
+  /// Grouping labels, lowercased and deduplicated. Always present; `[]` when none were set.
+  @BuiltValueField(wireName: r'tags')
+  BuiltList<String>? get tags;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<Message> get serializer => _$MessageSerializer();
@@ -135,6 +145,20 @@ class _$MessageSerializer implements PrimitiveSerializer<Message> {
       yield serializers.serialize(
         object.sizeBytes,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.metadata != null) {
+      yield r'metadata';
+      yield serializers.serialize(
+        object.metadata,
+        specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
+      );
+    }
+    if (object.tags != null) {
+      yield r'tags';
+      yield serializers.serialize(
+        object.tags,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
   }
@@ -276,6 +300,20 @@ class _$$MessageSerializer implements PrimitiveSerializer<$Message> {
             specifiedType: const FullType(int),
           ) as int;
           result.sizeBytes = valueDes;
+          break;
+        case r'metadata':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltMap, [FullType(String), FullType(String)]),
+          ) as BuiltMap<String, String>;
+          result.metadata.replace(valueDes);
+          break;
+        case r'tags':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.tags.replace(valueDes);
           break;
         default:
           unhandled.add(key);

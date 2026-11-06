@@ -17,6 +17,7 @@ part 'batch_result.g.dart';
 /// * [messageId] 
 /// * [status] - \"suppressed\" means every recipient of that slot was on your suppression list, and it carries no id or message_id. \"delivered\" only appears on a test key: the send was simulated, not transmitted.
 /// * [error] - Present when this message failed; the others are then absent.
+/// * [warning] - Advisory, and NOT a failure. Today the only one is a template variable the template referenced and the request never supplied, which rendered as the empty string.
 @BuiltValue()
 abstract class BatchResult implements Built<BatchResult, BatchResultBuilder> {
   @BuiltValueField(wireName: r'index')
@@ -36,6 +37,10 @@ abstract class BatchResult implements Built<BatchResult, BatchResultBuilder> {
   /// Present when this message failed; the others are then absent.
   @BuiltValueField(wireName: r'error')
   String? get error;
+
+  /// Advisory, and NOT a failure. Today the only one is a template variable the template referenced and the request never supplied, which rendered as the empty string.
+  @BuiltValueField(wireName: r'warning')
+  String? get warning;
 
   BatchResult._();
 
@@ -92,6 +97,13 @@ class _$BatchResultSerializer implements PrimitiveSerializer<BatchResult> {
       yield r'error';
       yield serializers.serialize(
         object.error,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.warning != null) {
+      yield r'warning';
+      yield serializers.serialize(
+        object.warning,
         specifiedType: const FullType(String),
       );
     }
@@ -152,6 +164,13 @@ class _$BatchResultSerializer implements PrimitiveSerializer<BatchResult> {
             specifiedType: const FullType(String),
           ) as String;
           result.error = valueDes;
+          break;
+        case r'warning':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.warning = valueDes;
           break;
         default:
           unhandled.add(key);

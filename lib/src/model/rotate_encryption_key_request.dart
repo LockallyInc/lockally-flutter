@@ -18,7 +18,7 @@ part 'rotate_encryption_key_request.g.dart';
 @BuiltValue()
 abstract class RotateEncryptionKeyRequest implements Built<RotateEncryptionKeyRequest, RotateEncryptionKeyRequestBuilder> {
   @BuiltValueField(wireName: r'mailbox_email')
-  String get mailboxEmail;
+  String? get mailboxEmail;
 
   @BuiltValueField(wireName: r'encrypted_private_key')
   String get encryptedPrivateKey;
@@ -49,11 +49,13 @@ class _$RotateEncryptionKeyRequestSerializer implements PrimitiveSerializer<Rota
     RotateEncryptionKeyRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'mailbox_email';
-    yield serializers.serialize(
-      object.mailboxEmail,
-      specifiedType: const FullType(String),
-    );
+    if (object.mailboxEmail != null) {
+      yield r'mailbox_email';
+      yield serializers.serialize(
+        object.mailboxEmail,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'encrypted_private_key';
     yield serializers.serialize(
       object.encryptedPrivateKey,
