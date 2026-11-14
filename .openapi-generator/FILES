@@ -161,7 +161,6 @@ doc/ListSharedMembers200Response.md
 doc/ListSuppressions200Response.md
 doc/ListTemplates200Response.md
 doc/ListUsers200Response.md
-doc/ListVacationResponders200Response.md
 doc/ListWebhooks200Response.md
 doc/Mailbox.md
 doc/MailboxGrant.md
@@ -205,7 +204,6 @@ doc/SendEmailBatchRequest.md
 doc/SendEmailRequest.md
 doc/SendEmailRequestAttachmentsInner.md
 doc/SendMessage.md
-doc/SetVacationResponderRequest.md
 doc/SharedMember.md
 doc/SignupApi.md
 doc/SignupRequest.md
@@ -252,8 +250,6 @@ doc/UpdateWebhookRequest.md
 doc/User.md
 doc/UserEvent.md
 doc/UsersApi.md
-doc/VacationParams.md
-doc/VacationResponder.md
 doc/Webhook.md
 doc/WebhooksApi.md
 doc/Whoami.md
@@ -439,7 +435,6 @@ lib/src/model/list_shared_members200_response.dart
 lib/src/model/list_suppressions200_response.dart
 lib/src/model/list_templates200_response.dart
 lib/src/model/list_users200_response.dart
-lib/src/model/list_vacation_responders200_response.dart
 lib/src/model/list_webhooks200_response.dart
 lib/src/model/mailbox.dart
 lib/src/model/mailbox_grant.dart
@@ -479,7 +474,6 @@ lib/src/model/send_email_batch_request.dart
 lib/src/model/send_email_request.dart
 lib/src/model/send_email_request_attachments_inner.dart
 lib/src/model/send_message.dart
-lib/src/model/set_vacation_responder_request.dart
 lib/src/model/shared_member.dart
 lib/src/model/signup_request.dart
 lib/src/model/simulated_inbound.dart
@@ -520,8 +514,6 @@ lib/src/model/update_user_request.dart
 lib/src/model/update_webhook_request.dart
 lib/src/model/user.dart
 lib/src/model/user_event.dart
-lib/src/model/vacation_params.dart
-lib/src/model/vacation_responder.dart
 lib/src/model/webhook.dart
 lib/src/model/whoami.dart
 lib/src/model/whoami_key.dart
@@ -687,7 +679,6 @@ test/list_shared_members200_response_test.dart
 test/list_suppressions200_response_test.dart
 test/list_templates200_response_test.dart
 test/list_users200_response_test.dart
-test/list_vacation_responders200_response_test.dart
 test/list_webhooks200_response_test.dart
 test/mailbox_grant_list_test.dart
 test/mailbox_grant_test.dart
@@ -731,7 +722,6 @@ test/send_email_batch_request_test.dart
 test/send_email_request_attachments_inner_test.dart
 test/send_email_request_test.dart
 test/send_message_test.dart
-test/set_vacation_responder_request_test.dart
 test/shared_member_test.dart
 test/signup_api_test.dart
 test/signup_request_test.dart
@@ -778,8 +768,6 @@ test/update_webhook_request_test.dart
 test/user_event_test.dart
 test/user_test.dart
 test/users_api_test.dart
-test/vacation_params_test.dart
-test/vacation_responder_test.dart
 test/webhook_test.dart
 test/webhooks_api_test.dart
 test/whoami_key_test.dart

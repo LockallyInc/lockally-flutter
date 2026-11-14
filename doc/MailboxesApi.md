@@ -12,16 +12,12 @@ Method | HTTP request | Description
 [**addSharedMember**](MailboxesApi.md#addsharedmember) | **POST** /v1/mailboxes/{email}/members | Add a shared mailbox member
 [**createMailbox**](MailboxesApi.md#createmailbox) | **POST** /v1/mailboxes | Create a mailbox
 [**deleteMailbox**](MailboxesApi.md#deletemailbox) | **DELETE** /v1/mailboxes/{email} | Soft-delete a mailbox
-[**deleteVacationResponder**](MailboxesApi.md#deletevacationresponder) | **DELETE** /v1/mailboxes/{email}/vacation | Remove the vacation responder
 [**downloadMailboxExport**](MailboxesApi.md#downloadmailboxexport) | **GET** /v1/mailboxes/{email}/export/download | Download a previously-issued mailbox export
 [**exportMailbox**](MailboxesApi.md#exportmailbox) | **POST** /v1/mailboxes/{email}/export | Request a mailbox export
 [**getMailbox**](MailboxesApi.md#getmailbox) | **GET** /v1/mailboxes/{email} | Get a mailbox
-[**getVacationResponder**](MailboxesApi.md#getvacationresponder) | **GET** /v1/mailboxes/{email}/vacation | Get the vacation responder
 [**listMailboxes**](MailboxesApi.md#listmailboxes) | **GET** /v1/mailboxes | List mailboxes
 [**listSharedMembers**](MailboxesApi.md#listsharedmembers) | **GET** /v1/mailboxes/{email}/members | List shared mailbox members
-[**listVacationResponders**](MailboxesApi.md#listvacationresponders) | **GET** /v1/vacation | List all vacation responders
 [**removeSharedMember**](MailboxesApi.md#removesharedmember) | **DELETE** /v1/mailboxes/{email}/members/{memberEmail} | Remove a shared mailbox member
-[**setVacationResponder**](MailboxesApi.md#setvacationresponder) | **PUT** /v1/mailboxes/{email}/vacation | Set the vacation responder
 [**updateMailbox**](MailboxesApi.md#updatemailbox) | **PATCH** /v1/mailboxes/{email} | Update a mailbox
 
 
@@ -129,48 +125,6 @@ try {
     api.deleteMailbox(email);
 } on DioException catch (e) {
     print('Exception when calling MailboxesApi->deleteMailbox: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteVacationResponder**
-> deleteVacationResponder(email)
-
-Remove the vacation responder
-
-Idempotent, 204 whether or not a row existed.
-
-### Example
-```dart
-import 'package:lockally/api.dart';
-
-final api = Lockally().getMailboxesApi();
-final String email = email_example; // String | 
-
-try {
-    api.deleteVacationResponder(email);
-} on DioException catch (e) {
-    print('Exception when calling MailboxesApi->deleteVacationResponder: $e\n');
 }
 ```
 
@@ -324,49 +278,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getVacationResponder**
-> VacationResponder getVacationResponder(email)
-
-Get the vacation responder
-
-Returns the stored vacation rule or 404 if none is set.
-
-### Example
-```dart
-import 'package:lockally/api.dart';
-
-final api = Lockally().getMailboxesApi();
-final String email = email_example; // String | 
-
-try {
-    final response = api.getVacationResponder(email);
-    print(response);
-} on DioException catch (e) {
-    print('Exception when calling MailboxesApi->getVacationResponder: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **String**|  | 
-
-### Return type
-
-[**VacationResponder**](VacationResponder.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **listMailboxes**
 > ListMailboxes200Response listMailboxes(limit)
 
@@ -451,45 +362,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listVacationResponders**
-> ListVacationResponders200Response listVacationResponders()
-
-List all vacation responders
-
-Returns every vacation responder for the calling tenant.
-
-### Example
-```dart
-import 'package:lockally/api.dart';
-
-final api = Lockally().getMailboxesApi();
-
-try {
-    final response = api.listVacationResponders();
-    print(response);
-} on DioException catch (e) {
-    print('Exception when calling MailboxesApi->listVacationResponders: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**ListVacationResponders200Response**](ListVacationResponders200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **removeSharedMember**
 > removeSharedMember(email, memberEmail)
 
@@ -529,51 +401,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **setVacationResponder**
-> VacationResponder setVacationResponder(email, setVacationResponderRequest)
-
-Set the vacation responder
-
-Upsert, same endpoint creates or replaces the rule. Clears `synced_at`; the rule is staged until a later sync pushes it to the mail server. 
-
-### Example
-```dart
-import 'package:lockally/api.dart';
-
-final api = Lockally().getMailboxesApi();
-final String email = email_example; // String | 
-final SetVacationResponderRequest setVacationResponderRequest = ; // SetVacationResponderRequest | 
-
-try {
-    final response = api.setVacationResponder(email, setVacationResponderRequest);
-    print(response);
-} on DioException catch (e) {
-    print('Exception when calling MailboxesApi->setVacationResponder: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **String**|  | 
- **setVacationResponderRequest** | [**SetVacationResponderRequest**](SetVacationResponderRequest.md)|  | 
-
-### Return type
-
-[**VacationResponder**](VacationResponder.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

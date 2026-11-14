@@ -1,7 +1,8 @@
 name: lockally
-version: 0.4.0
-description: Official Lockally SDK for Flutter/Dart — transactional email, contacts, and agent inboxes.
+version: 0.5.0
+description: "Official Lockally SDK for Flutter: send email and manage mailboxes, domains and webhooks through the Lockally API."
 homepage: https://lockally.com
+repository: https://github.com/LockallyInc/lockally-flutter
 
 
 environment:

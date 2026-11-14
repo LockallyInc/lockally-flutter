@@ -154,7 +154,6 @@ import 'package:lockally/src/model/list_shared_members200_response.dart';
 import 'package:lockally/src/model/list_suppressions200_response.dart';
 import 'package:lockally/src/model/list_templates200_response.dart';
 import 'package:lockally/src/model/list_users200_response.dart';
-import 'package:lockally/src/model/list_vacation_responders200_response.dart';
 import 'package:lockally/src/model/list_webhooks200_response.dart';
 import 'package:lockally/src/model/mailbox.dart';
 import 'package:lockally/src/model/mailbox_grant.dart';
@@ -194,7 +193,6 @@ import 'package:lockally/src/model/send_email_batch_request.dart';
 import 'package:lockally/src/model/send_email_request.dart';
 import 'package:lockally/src/model/send_email_request_attachments_inner.dart';
 import 'package:lockally/src/model/send_message.dart';
-import 'package:lockally/src/model/set_vacation_responder_request.dart';
 import 'package:lockally/src/model/shared_member.dart';
 import 'package:lockally/src/model/signup_request.dart';
 import 'package:lockally/src/model/simulated_inbound.dart';
@@ -235,8 +233,6 @@ import 'package:lockally/src/model/update_user_request.dart';
 import 'package:lockally/src/model/update_webhook_request.dart';
 import 'package:lockally/src/model/user.dart';
 import 'package:lockally/src/model/user_event.dart';
-import 'package:lockally/src/model/vacation_params.dart';
-import 'package:lockally/src/model/vacation_responder.dart';
 import 'package:lockally/src/model/webhook.dart';
 import 'package:lockally/src/model/whoami.dart';
 import 'package:lockally/src/model/whoami_key.dart';
@@ -385,7 +381,6 @@ part 'serializers.g.dart';
   ListSuppressions200Response,
   ListTemplates200Response,
   ListUsers200Response,
-  ListVacationResponders200Response,
   ListWebhooks200Response,
   Mailbox,
   MailboxGrant,
@@ -425,7 +420,6 @@ part 'serializers.g.dart';
   SendEmailRequest,
   SendEmailRequestAttachmentsInner,
   SendMessage,
-  SetVacationResponderRequest,
   SharedMember,
   SignupRequest,
   SimulatedInbound,
@@ -466,8 +460,6 @@ part 'serializers.g.dart';
   UpdateWebhookRequest,
   User,
   UserEvent,
-  VacationParams,
-  VacationResponder,
   Webhook,
   Whoami,
   WhoamiKey,

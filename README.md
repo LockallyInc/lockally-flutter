@@ -11,8 +11,8 @@
 
 # Lockally for Flutter
 
-Official Flutter/Dart SDK for the [Lockally](https://lockally.com) API —
-transactional email, contacts, and agent inboxes. A generated dio client plus a
+Official [Lockally](https://lockally.com) SDK for Flutter: send email and manage mailboxes, domains and webhooks through the Lockally API.
+This package is a generated dio client plus a
 secure auth + ergonomics layer (`package:lockally/lockally_auth.dart`):
 `TokenProvider`, OAuth 2.1 PKCE, automatic retries, idempotency keys, and
 `Stream` pagination.
@@ -31,7 +31,7 @@ dependencies:
 
 ## 🔐 Security: never ship a live API key
 
-A Flutter app binary is distributed — an embedded `lk_live_…` key can be
+A Flutter app binary is distributed, so an embedded `lk_live_…` key can be
 extracted. A leaked send-scoped key is an open spam relay billed to you.
 
 - **Sending mail (OTP, verification) + contact sync** → `BackendTokenProvider`.
@@ -84,7 +84,7 @@ await for (final c in paginate((cursor) async {
 Register the device push token (FCM/APNs) with your backend; it decides per event
 whether to push, email (via Lockally), or both. The SDK drives the email leg.
 
-### Inbox / agent (OAuth PKCE — user tokens)
+### Inbox / agent (OAuth PKCE, user tokens)
 The one interactive user-token flow the API issues today (`inboxes:read/write`).
 Run the browser step with `flutter_web_auth_2`:
 
@@ -110,4 +110,4 @@ Non-2xx responses can be mapped to `LockallyException` (`status` / `code` /
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).

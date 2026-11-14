@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0
+
+- **Breaking:** the four admin vacation responder methods are removed
+  (`getVacationResponder`, `setVacationResponder`, `deleteVacationResponder`,
+  `listVacationResponders`). The API retired those endpoints because they never
+  reached the mail server, and every call has returned 404 since then. Out-of-office
+  replies are set per mailbox in webmail.
+- Package description, homepage and repository now say what Lockally is.
+
 ## 0.2.0
 
 - `reply_to` and `reply_to_name` on the send request. `reply_to_name` sets the
@@ -15,10 +24,10 @@
 
 Initial release of the official Lockally SDK for Flutter.
 
-- Typed API client generated from the Lockally OpenAPI spec — transactional
+- Typed API client generated from the Lockally OpenAPI spec: transactional
   email, contacts, and agent inboxes.
 - Secure-by-default auth (`package:lockally/lockally_auth.dart`): a `TokenProvider`
-  abstraction with `BackendTokenProvider` (short-lived, backend-minted tokens —
+  abstraction with `BackendTokenProvider` (short-lived, backend-minted tokens,
   the recommended path for sending mail / OTP / verification / contacts),
   `OAuthPkceProvider` (OAuth 2.1 + PKCE for user/inbox flows), and a guarded
   `StaticTokenProvider`.
