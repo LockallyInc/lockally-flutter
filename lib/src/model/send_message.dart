@@ -13,7 +13,8 @@ part 'send_message.g.dart';
 /// SendMessage
 ///
 /// Properties:
-/// * [from] 
+/// * [from] - Sender address, alone or as `Acme Orders <orders@acme.com>`.
+/// * [fromName] - Display name shown next to `from`. Must match a name given in `from`. Cannot contain `@` or control characters.
 /// * [to] 
 /// * [cc] 
 /// * [bcc] 
@@ -30,8 +31,13 @@ part 'send_message.g.dart';
 /// * [attachments] 
 @BuiltValue()
 abstract class SendMessage implements Built<SendMessage, SendMessageBuilder> {
+  /// Sender address, alone or as `Acme Orders <orders@acme.com>`.
   @BuiltValueField(wireName: r'from')
   String get from;
+
+  /// Display name shown next to `from`. Must match a name given in `from`. Cannot contain `@` or control characters.
+  @BuiltValueField(wireName: r'from_name')
+  String? get fromName;
 
   @BuiltValueField(wireName: r'to')
   BuiltList<String> get to;
@@ -105,6 +111,13 @@ class _$SendMessageSerializer implements PrimitiveSerializer<SendMessage> {
       object.from,
       specifiedType: const FullType(String),
     );
+    if (object.fromName != null) {
+      yield r'from_name';
+      yield serializers.serialize(
+        object.fromName,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'to';
     yield serializers.serialize(
       object.to,
@@ -230,6 +243,13 @@ class _$SendMessageSerializer implements PrimitiveSerializer<SendMessage> {
             specifiedType: const FullType(String),
           ) as String;
           result.from = valueDes;
+          break;
+        case r'from_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.fromName = valueDes;
           break;
         case r'to':
           final valueDes = serializers.deserialize(

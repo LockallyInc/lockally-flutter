@@ -21,7 +21,7 @@ secure auth + ergonomics layer (`package:lockally/lockally_auth.dart`):
 
 ```yaml
 dependencies:
-  lockally: ^0.1.0
+  lockally: ^0.5.0
   # For the OAuth/secure-storage helpers:
   flutter_secure_storage: ^9.0.0
   flutter_web_auth_2: ^3.0.0

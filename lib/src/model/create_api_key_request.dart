@@ -25,7 +25,7 @@ abstract class CreateApiKeyRequest implements Built<CreateApiKeyRequest, CreateA
   /// Allowed scopes on this key.
   @BuiltValueField(wireName: r'scopes')
   BuiltList<CreateApiKeyRequestScopesEnum> get scopes;
-  // enum scopesEnum {  tenant:read,  tenant:admin,  mailboxes:read,  mailboxes:write,  directory:sync,  inboxes:read,  inboxes:write,  send:read,  send:write,  templates:read,  templates:write,  suppressions:read,  suppressions:write,  webhooks:read,  webhooks:write,  domains:read,  domains:write,  migrations:read,  migrations:write,  };
+  // enum scopesEnum {  tenant:read,  tenant:admin,  mailboxes:read,  mailboxes:write,  directory:sync,  inboxes:read,  inboxes:draft,  inboxes:write,  send:read,  send:write,  templates:read,  templates:write,  suppressions:read,  suppressions:write,  webhooks:read,  webhooks:write,  domains:read,  domains:write,  migrations:read,  migrations:write,  };
 
   /// Issue a test key (`lk_test_` prefix). A test key accepts sends, records them and fires a simulated delivery webhook without sending mail, and counts against no limit or allowance. 
   @BuiltValueField(wireName: r'test')
@@ -177,6 +177,8 @@ class CreateApiKeyRequestScopesEnum extends EnumClass {
   static const CreateApiKeyRequestScopesEnum directoryColonSync = _$createApiKeyRequestScopesEnum_directoryColonSync;
   @BuiltValueEnumConst(wireName: r'inboxes:read')
   static const CreateApiKeyRequestScopesEnum inboxesColonRead = _$createApiKeyRequestScopesEnum_inboxesColonRead;
+  @BuiltValueEnumConst(wireName: r'inboxes:draft')
+  static const CreateApiKeyRequestScopesEnum inboxesColonDraft = _$createApiKeyRequestScopesEnum_inboxesColonDraft;
   @BuiltValueEnumConst(wireName: r'inboxes:write')
   static const CreateApiKeyRequestScopesEnum inboxesColonWrite = _$createApiKeyRequestScopesEnum_inboxesColonWrite;
   @BuiltValueEnumConst(wireName: r'send:read')

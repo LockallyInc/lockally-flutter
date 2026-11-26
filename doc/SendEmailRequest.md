@@ -8,7 +8,8 @@ import 'package:lockally/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**from** | **String** |  | 
+**from** | **String** | Sender address, alone (`orders@acme.com`) or with a display name (`Acme Orders <orders@acme.com>`). Only the address is checked against your sender rules and used as the envelope sender. | 
+**fromName** | **String** | Display name recipients see next to `from`, e.g. `Acme Orders`. The same as giving it in `from`; if you do both, the names must match (400 `Conflicting from name`). Cannot contain `@` or control characters. Encoded and quoted for you, so accents, commas and quotes are safe. | [optional] 
 **to** | **BuiltList&lt;String&gt;** |  | 
 **cc** | **BuiltList&lt;String&gt;** |  | [optional] 
 **bcc** | **BuiltList&lt;String&gt;** |  | [optional] 

@@ -8,7 +8,8 @@ import 'package:lockally/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**from** | **String** |  | 
+**from** | **String** | Sender address, alone or as `Acme Orders <orders@acme.com>`. | 
+**fromName** | **String** | Display name shown next to `from`. Must match a name given in `from`. Cannot contain `@` or control characters. | [optional] 
 **to** | **BuiltList&lt;String&gt;** |  | 
 **cc** | **BuiltList&lt;String&gt;** |  | [optional] 
 **bcc** | **BuiltList&lt;String&gt;** |  | [optional] 

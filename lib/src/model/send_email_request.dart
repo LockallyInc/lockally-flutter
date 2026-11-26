@@ -13,7 +13,8 @@ part 'send_email_request.g.dart';
 /// SendEmailRequest
 ///
 /// Properties:
-/// * [from] 
+/// * [from] - Sender address, alone (`orders@acme.com`) or with a display name (`Acme Orders <orders@acme.com>`). Only the address is checked against your sender rules and used as the envelope sender.
+/// * [fromName] - Display name recipients see next to `from`, e.g. `Acme Orders`. The same as giving it in `from`; if you do both, the names must match (400 `Conflicting from name`). Cannot contain `@` or control characters. Encoded and quoted for you, so accents, commas and quotes are safe.
 /// * [to] 
 /// * [cc] 
 /// * [bcc] 
@@ -34,8 +35,13 @@ part 'send_email_request.g.dart';
 /// * [attachments] 
 @BuiltValue()
 abstract class SendEmailRequest implements Built<SendEmailRequest, SendEmailRequestBuilder> {
+  /// Sender address, alone (`orders@acme.com`) or with a display name (`Acme Orders <orders@acme.com>`). Only the address is checked against your sender rules and used as the envelope sender.
   @BuiltValueField(wireName: r'from')
   String get from;
+
+  /// Display name recipients see next to `from`, e.g. `Acme Orders`. The same as giving it in `from`; if you do both, the names must match (400 `Conflicting from name`). Cannot contain `@` or control characters. Encoded and quoted for you, so accents, commas and quotes are safe.
+  @BuiltValueField(wireName: r'from_name')
+  String? get fromName;
 
   @BuiltValueField(wireName: r'to')
   BuiltList<String> get to;
@@ -131,6 +137,13 @@ class _$SendEmailRequestSerializer implements PrimitiveSerializer<SendEmailReque
       object.from,
       specifiedType: const FullType(String),
     );
+    if (object.fromName != null) {
+      yield r'from_name';
+      yield serializers.serialize(
+        object.fromName,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'to';
     yield serializers.serialize(
       object.to,
@@ -284,6 +297,13 @@ class _$SendEmailRequestSerializer implements PrimitiveSerializer<SendEmailReque
             specifiedType: const FullType(String),
           ) as String;
           result.from = valueDes;
+          break;
+        case r'from_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.fromName = valueDes;
           break;
         case r'to':
           final valueDes = serializers.deserialize(
